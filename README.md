@@ -237,5 +237,5 @@ Private · The Orion School
 ---
 
 <div align="center">
-  <sub>Built with ❤️ by The Orion School</sub>
+  <sub>Built with ❤️ by Muhammad Bilal Hassan</sub>
 </div>
