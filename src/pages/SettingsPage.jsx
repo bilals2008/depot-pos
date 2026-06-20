@@ -26,11 +26,11 @@ import {
 } from "lucide-react";
 
 const themes = [
-  { id: "blue", label: "Default Blue", labelUr: "نیلا", desc: "Professional blue accent", color: "#2563eb" },
-  { id: "ocean", label: "Ocean Teal", labelUr: "سمندری", desc: "Calm teal tones", color: "#0d9488" },
-  { id: "emerald", label: "Emerald Green", labelUr: "سبز", desc: "Fresh green energy", color: "#059669" },
-  { id: "amber", label: "Amber Warm", labelUr: "سنہری", desc: "Warm amber glow", color: "#d97706" },
-  { id: "slate", label: "Slate Pro", labelUr: "سلیٹ", desc: "Dark elegant purple", color: "#7c3aed" },
+  { id: "blue", label: "Default Blue", labelUr: "نیلا", desc: "Professional blue", bg: "#f8fafc", card: "#ffffff", accent: "#2563eb", text: "#020617" },
+  { id: "ocean", label: "Ocean Teal", labelUr: "سمندری", desc: "Calm teal tones", bg: "#f0fdfa", card: "#ffffff", accent: "#0d9488", text: "#022c22" },
+  { id: "emerald", label: "Emerald Green", labelUr: "سبز", desc: "Fresh green", bg: "#f0fdf4", card: "#ffffff", accent: "#059669", text: "#052e16" },
+  { id: "amber", label: "Amber Warm", labelUr: "سنہری", desc: "Warm amber glow", bg: "#fffbeb", card: "#ffffff", accent: "#d97706", text: "#1c1917" },
+  { id: "slate", label: "Slate Pro", labelUr: "سلیٹ", desc: "Purple elegance", bg: "#f8fafc", card: "#ffffff", accent: "#7c3aed", text: "#020617" },
 ];
 
 const modeOptions = [
@@ -163,22 +163,48 @@ const SettingsPage = () => {
                     key={th.id}
                     type="button"
                     onClick={() => setThemeName(th.id)}
-                    className={`relative flex flex-col items-center gap-2 rounded-lg border-2 p-3 transition-all hover:bg-accent ${
+                    className={`relative rounded-lg border-2 p-2 transition-all hover:shadow-md ${
                       themeName === th.id
-                        ? "border-primary bg-accent"
+                        ? "border-primary ring-2 ring-primary/30"
                         : "border-border"
                     }`}
                   >
                     <div
-                      className="h-8 w-full rounded-md"
-                      style={{ backgroundColor: th.color }}
-                    />
-                    <span className="text-xs font-medium text-center leading-tight">
-                      {th.label}
-                    </span>
-                    {themeName === th.id && (
-                      <Check className="absolute top-1 right-1 h-3.5 w-3.5 text-primary" />
-                    )}
+                      className="rounded-md overflow-hidden"
+                      style={{ backgroundColor: th.bg }}
+                    >
+                      <div className="flex items-end h-12 p-1.5 gap-1">
+                        <div
+                          className="h-8 w-8 rounded-sm shrink-0"
+                          style={{ backgroundColor: th.accent }}
+                        />
+                        <div className="flex-1 space-y-1">
+                          <div
+                            className="h-2 rounded-sm w-full"
+                            style={{ backgroundColor: th.card }}
+                          />
+                          <div
+                            className="h-2 rounded-sm w-2/3"
+                            style={{ backgroundColor: th.card }}
+                          />
+                        </div>
+                      </div>
+                      <div
+                        className="h-4 px-1.5 flex items-center"
+                        style={{ backgroundColor: th.card }}
+                      >
+                        <div
+                          className="h-1 rounded-sm w-full"
+                          style={{ backgroundColor: th.text, opacity: 0.4 }}
+                        />
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between mt-1 px-0.5">
+                      <span className="text-xs font-medium">{th.label}</span>
+                      {themeName === th.id && (
+                        <Check className="h-3.5 w-3.5 text-primary shrink-0" />
+                      )}
+                    </div>
                   </button>
                 ))}
               </div>

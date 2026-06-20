@@ -15,6 +15,19 @@ const themeNames = [
   { id: "slate", label: "Slate Pro", labelUr: "سلیٹ" },
 ];
 
+function applyTheme(themeName, themeMode) {
+  const root = document.documentElement;
+  root.setAttribute("data-theme", themeName);
+  root.classList.remove("light", "dark");
+
+  if (themeMode === "system") {
+    const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    root.classList.add(isDark ? "dark" : "light");
+  } else {
+    root.classList.add(themeMode);
+  }
+}
+
 export function ThemeProvider({
   children,
   defaultTheme = "system",
@@ -29,19 +42,15 @@ export function ThemeProvider({
   );
 
   useEffect(() => {
-    const root = window.document.documentElement;
-    root.classList.remove("light", "dark", ...themeNames.map(t => `theme-${t.id}`));
+    applyTheme(themeName, theme);
+  }, [theme, themeName]);
 
-    if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-      root.classList.add(systemTheme);
-    } else {
-      root.classList.add(theme);
-    }
-
-    if (themeName !== "blue") {
-      root.classList.add(`theme-${themeName}`);
-    }
+  useEffect(() => {
+    if (theme !== "system") return;
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const handler = () => applyTheme(themeName, "system");
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
   }, [theme, themeName]);
 
   const value = {
