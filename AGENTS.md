@@ -68,6 +68,7 @@ For chart colors, use `chart-1` through `chart-5` tokens.
 ### 2. shadcn/ui Components
 
 All UI primitives live in `src/components/ui/`. Import and compose them — never write raw Radix or custom HTML for dialogs, forms, dropdowns, etc.
+if not install shadcn compnent plz install first using shadcn skill
 
 ```jsx
 import { Button } from "@/components/ui/button";
