@@ -1,7 +1,7 @@
+import { useMemo } from "react";
 import { useSettings } from "@/context/SettingsContext";
 import { useTheme } from "@/context/ThemeContext";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
@@ -26,8 +26,8 @@ import {
 } from "lucide-react";
 
 const themes = [
-  { id: "blue", label: "Default Blue", labelUr: "نیلا", desc: "Professional blue", bg: "#f8fafc", card: "#ffffff", accent: "#2563eb", text: "#020617" },
-  { id: "slate", label: "Slate Pro", labelUr: "سلیٹ", desc: "Purple elegance", bg: "#f8fafc", card: "#ffffff", accent: "#7c3aed", text: "#020617" },
+  { id: "blue", label: "Default Blue", labelUr: "نیلا", desc: "Professional blue", light: { bg: "#f8fafc", card: "#ffffff", accent: "#2563eb", text: "#020617" }, dark: { bg: "#000000", card: "#0f172a", accent: "#1d4ed8", text: "#ffffff" } },
+  { id: "slate", label: "Slate Pro", labelUr: "سلیٹ", desc: "Purple elegance", light: { bg: "#f8fafc", card: "#ffffff", accent: "#7c3aed", text: "#020617" }, dark: { bg: "#09090b", card: "#18181b", accent: "#8b5cf6", text: "#e2e8f0" } },
 ];
 
 const modeOptions = [
@@ -36,223 +36,185 @@ const modeOptions = [
   { id: "system", icon: Monitor, label: "System" },
 ];
 
+function Toggle({ checked, onChange }) {
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={checked}
+      onClick={onChange}
+      className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+        checked ? "bg-primary" : "bg-input"
+      }`}
+    >
+      <span
+        className={`pointer-events-none block h-3.5 w-3.5 rounded-full bg-background shadow ring-0 transition-transform ${
+          checked ? "translate-x-4" : "translate-x-0"
+        }`}
+      />
+    </button>
+  );
+}
+
 const SettingsPage = () => {
   const { settings, updateSettings, t } = useSettings();
   const { theme, themeName, setTheme, setThemeName } = useTheme();
+  const isDark = useMemo(() => {
+    if (theme === "dark") return true;
+    if (theme === "system") return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    return false;
+  }, [theme]);
 
   const handleSave = () => {
     toast.success("Settings saved");
   };
 
   return (
-    <div className="h-full w-full overflow-y-auto">
-      <div className="max-w-3xl mx-auto p-6 space-y-6">
-        <div className="space-y-1">
-          <h1 className="text-2xl font-bold tracking-tight">{t("Settings")}</h1>
-          <p className="text-muted-foreground">Configure your shop preferences</p>
+    <div className="h-full w-full overflow-y-auto bg-muted/30">
+      <div className="max-w-2xl mx-auto p-6 space-y-6">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-sm font-semibold text-foreground">{t("Settings")}</h1>
+            <p className="text-xs text-muted-foreground mt-0.5">Configure your shop preferences</p>
+          </div>
+          <Button onClick={handleSave} size="sm" className="gap-1.5 text-xs h-8">
+            <Save className="h-3.5 w-3.5" />
+            {t("Save Changes")}
+          </Button>
         </div>
 
         {/* Shop Profile */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center gap-2">
-              <Store className="h-5 w-5 text-primary" />
-              <div>
-                <CardTitle className="text-lg">{t("Shop Profile")}</CardTitle>
-                <CardDescription>Shop information displayed on receipts</CardDescription>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="shopName">{t("Shop Name")}</Label>
+        <div className="bg-card border border-border rounded-xl p-5 space-y-5">
+          <div className="flex items-center gap-2">
+            <Store className="h-4 w-4 text-primary" />
+            <h2 className="text-xs font-semibold text-foreground">Shop Profile</h2>
+          </div>
+          <Separator />
+          <div className="space-y-4">
+            <div className="space-y-1.5">
+              <Label htmlFor="shopName" className="text-xs font-medium">{t("Shop Name")}</Label>
               <Input
                 id="shopName"
                 value={settings.shopName}
                 onChange={(e) => updateSettings({ shopName: e.target.value })}
+                className="h-8 text-sm"
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="shopAddress">{t("Address")}</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="shopAddress" className="text-xs font-medium">{t("Address")}</Label>
               <Input
                 id="shopAddress"
                 value={settings.shopAddress}
                 onChange={(e) => updateSettings({ shopAddress: e.target.value })}
+                className="h-8 text-sm"
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="shopPhone">{t("Phone")}</Label>
+              <div className="space-y-1.5">
+                <Label htmlFor="shopPhone" className="text-xs font-medium">{t("Phone")}</Label>
                 <Input
                   id="shopPhone"
                   value={settings.shopPhone}
                   onChange={(e) => updateSettings({ shopPhone: e.target.value })}
+                  className="h-8 text-sm"
                 />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="shopEmail">{t("Email")}</Label>
+              <div className="space-y-1.5">
+                <Label htmlFor="shopEmail" className="text-xs font-medium">{t("Email")}</Label>
                 <Input
                   id="shopEmail"
                   value={settings.shopEmail}
                   onChange={(e) => updateSettings({ shopEmail: e.target.value })}
+                  className="h-8 text-sm"
                 />
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        {/* Cloud Sync */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center gap-2">
-              <Cloud className="h-5 w-5 text-primary" />
-              <div>
-                <CardTitle className="text-lg">Cloud Sync</CardTitle>
-                <CardDescription>Sync data to Supabase cloud backup</CardDescription>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center justify-between">
-              <div className="space-y-0.5">
-                <Label>Enable Cloud Sync</Label>
-                <p className="text-sm text-muted-foreground">
-                  Automatically sync products, sales, and inventory to the cloud
-                </p>
-              </div>
-              <button
-                type="button"
-                role="switch"
-                aria-checked={settings.syncEnabled}
-                onClick={() => updateSettings({ syncEnabled: !settings.syncEnabled })}
-                className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
-                  settings.syncEnabled ? "bg-primary" : "bg-input"
-                }`}
-              >
-                <span
-                  className={`pointer-events-none block h-5 w-5 rounded-full bg-background shadow-lg ring-0 transition-transform ${
-                    settings.syncEnabled ? "translate-x-5" : "translate-x-0"
-                  }`}
-                />
-              </button>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Theme */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center gap-2">
-              <Palette className="h-5 w-5 text-primary" />
-              <div>
-                <CardTitle className="text-lg">Theme</CardTitle>
-                <CardDescription>Choose your application color scheme</CardDescription>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-6">
+        {/* Appearance */}
+        <div className="bg-card border border-border rounded-xl p-5 space-y-5">
+          <div className="flex items-center gap-2">
+            <Palette className="h-4 w-4 text-primary" />
+            <h2 className="text-xs font-semibold text-foreground">Appearance</h2>
+          </div>
+          <Separator />
+          <div className="space-y-5">
             {/* Color Themes */}
             <div>
-              <Label className="mb-3 block">Color Theme</Label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-                {themes.map((th) => (
-                  <button
-                    key={th.id}
-                    type="button"
-                    onClick={() => setThemeName(th.id)}
-                    className={`relative rounded-lg border-2 p-2 transition-all hover:shadow-md ${
-                      themeName === th.id
-                        ? "border-primary ring-2 ring-primary/30"
-                        : "border-border"
-                    }`}
-                  >
-                    <div
-                      className="rounded-md overflow-hidden"
-                      style={{ backgroundColor: th.bg }}
-                    >
-                      <div className="flex items-end h-12 p-1.5 gap-1">
-                        <div
-                          className="h-8 w-8 rounded-sm shrink-0"
-                          style={{ backgroundColor: th.accent }}
-                        />
-                        <div className="flex-1 space-y-1">
-                          <div
-                            className="h-2 rounded-sm w-full"
-                            style={{ backgroundColor: th.card }}
-                          />
-                          <div
-                            className="h-2 rounded-sm w-2/3"
-                            style={{ backgroundColor: th.card }}
-                          />
-                        </div>
-                      </div>
-                      <div
-                        className="h-4 px-1.5 flex items-center"
-                        style={{ backgroundColor: th.card }}
-                      >
-                        <div
-                          className="h-1 rounded-sm w-full"
-                          style={{ backgroundColor: th.text, opacity: 0.4 }}
-                        />
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between mt-1 px-0.5">
-                      <span className="text-xs font-medium">{th.label}</span>
-                      {themeName === th.id && (
-                        <Check className="h-3.5 w-3.5 text-primary shrink-0" />
-                      )}
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <Separator />
-
-            {/* Mode */}
-            <div>
-              <Label className="mb-3 block">Display Mode</Label>
-              <div className="flex gap-2">
-                {modeOptions.map((mode) => {
-                  const Icon = mode.icon;
+              <Label className="text-xs font-medium mb-3 block">Color Theme</Label>
+              <div className="flex gap-3">
+                {themes.map((th) => {
+                  const isSelected = themeName === th.id;
+                  const c = isDark ? th.dark : th.light;
                   return (
                     <button
-                      key={mode.id}
+                      key={th.id}
                       type="button"
-                      onClick={() => setTheme(mode.id)}
-                      className={`flex items-center gap-2 rounded-lg border-2 px-4 py-2.5 transition-all hover:bg-accent ${
-                        theme === mode.id
-                          ? "border-primary bg-accent"
-                          : "border-border"
+                      onClick={() => setThemeName(th.id)}
+                      className={`group flex flex-col items-center gap-1.5 transition-all ${
+                        isSelected ? "" : "opacity-60 hover:opacity-90"
                       }`}
                     >
-                      <Icon className="h-4 w-4" />
-                      <span className="text-sm font-medium">{mode.label}</span>
+                      <div className={`relative rounded-full p-0.5 transition-all ${
+                        isSelected ? "ring-2 ring-primary ring-offset-2 ring-offset-background" : ""
+                      }`}>
+                        <div className="h-6 w-6 rounded-full" style={{ backgroundColor: c.accent }} />
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <span className={`text-[10px] font-medium whitespace-nowrap ${
+                          isSelected ? "text-foreground" : "text-muted-foreground"
+                        }`}>{th.label}</span>
+                      </div>
                     </button>
                   );
                 })}
               </div>
             </div>
-          </CardContent>
-        </Card>
 
-        {/* Language */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center gap-2">
-              <Globe className="h-5 w-5 text-primary" />
-              <div>
-                <CardTitle className="text-lg">{t("Language")}</CardTitle>
-                <CardDescription>{t("Select Language")}</CardDescription>
+            {/* Display Mode */}
+            <div>
+              <Label className="text-xs font-medium mb-3 block">Display Mode</Label>
+              <div className="flex gap-1.5 p-1 bg-muted rounded-lg w-fit">
+                {modeOptions.map((mode) => {
+                  const Icon = mode.icon;
+                  const isActive = theme === mode.id;
+                  return (
+                    <button
+                      key={mode.id}
+                      type="button"
+                      onClick={() => setTheme(mode.id)}
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
+                        isActive
+                          ? "bg-card text-foreground shadow-sm"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      <Icon className="h-3.5 w-3.5" />
+                      {mode.label}
+                    </button>
+                  );
+                })}
               </div>
             </div>
-          </CardHeader>
-          <CardContent>
+          </div>
+        </div>
+
+        {/* Language */}
+        <div className="bg-card border border-border rounded-xl p-5 space-y-5">
+          <div className="flex items-center gap-2">
+            <Globe className="h-4 w-4 text-primary" />
+            <h2 className="text-xs font-semibold text-foreground">Language</h2>
+          </div>
+          <Separator />
+          <div className="flex items-center gap-3">
+            <Label className="text-xs font-medium shrink-0">{t("Select Language")}</Label>
             <Select
               value={settings.language}
               onValueChange={(val) => updateSettings({ language: val })}
             >
-              <SelectTrigger className="w-48">
+              <SelectTrigger className="w-44 h-8 text-sm">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -260,15 +222,28 @@ const SettingsPage = () => {
                 <SelectItem value="ur">اردو (Urdu)</SelectItem>
               </SelectContent>
             </Select>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        {/* Save Button */}
-        <div className="flex justify-end">
-          <Button onClick={handleSave} className="gap-2">
-            <Save className="h-4 w-4" />
-            {t("Save Changes")}
-          </Button>
+        {/* Cloud Sync */}
+        <div className="bg-card border border-border rounded-xl p-5 space-y-5">
+          <div className="flex items-center gap-2">
+            <Cloud className="h-4 w-4 text-primary" />
+            <h2 className="text-xs font-semibold text-foreground">Cloud Sync</h2>
+          </div>
+          <Separator />
+          <div className="flex items-center justify-between">
+            <div className="space-y-0.5">
+              <Label className="text-xs font-medium">Enable Cloud Sync</Label>
+              <p className="text-xs text-muted-foreground">
+                Automatically sync products, sales, and inventory to the cloud
+              </p>
+            </div>
+            <Toggle
+              checked={settings.syncEnabled}
+              onChange={() => updateSettings({ syncEnabled: !settings.syncEnabled })}
+            />
+          </div>
         </div>
       </div>
     </div>
