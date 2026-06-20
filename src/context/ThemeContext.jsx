@@ -3,13 +3,18 @@ import { createContext, useContext, useEffect, useState } from "react";
 const ThemeContext = createContext({
   theme: "system",
   themeName: "blue",
+  accentColor: "blue",
   setTheme: () => null,
   setThemeName: () => null,
+  setAccentColor: () => null,
 });
 
 const themeNames = [
-  { id: "blue", label: "Default Blue", labelUr: "نیلا" },
-  { id: "slate", label: "Slate Pro", labelUr: "سلیٹ" },
+  { id: "blue", label: "Midnight Commerce", labelUr: "شام کا تجارت" },
+  { id: "graphite", label: "Graphite Pro", labelUr: "گرافائٹ پرو" },
+  { id: "slate", label: "Slate Pro", labelUr: "سلیٹ پرو" },
+  { id: "emerald", label: "Emerald Cashier", labelUr: "زمرد کیشیر" },
+  { id: "arctic", label: "Arctic POS", labelUr: "ارکٹک پوس" },
 ];
 
 function applyTheme(themeName, themeMode) {
@@ -30,12 +35,16 @@ export function ThemeProvider({
   defaultTheme = "system",
   storageKey = "depot-ui-theme",
   themeNameKey = "depot-ui-theme-name",
+  accentKey = "depot-ui-accent-color",
 }) {
   const [theme, setTheme] = useState(
     () => localStorage.getItem(storageKey) || defaultTheme
   );
   const [themeName, setThemeName] = useState(
     () => localStorage.getItem(themeNameKey) || "blue"
+  );
+  const [accentColor, setAccentColorState] = useState(
+    () => localStorage.getItem(accentKey) || "blue"
   );
 
   useEffect(() => {
@@ -53,6 +62,7 @@ export function ThemeProvider({
   const value = {
     theme,
     themeName,
+    accentColor,
     themeNames,
     setTheme: (newTheme) => {
       localStorage.setItem(storageKey, newTheme);
@@ -61,6 +71,10 @@ export function ThemeProvider({
     setThemeName: (newName) => {
       localStorage.setItem(themeNameKey, newName);
       setThemeName(newName);
+    },
+    setAccentColor: (newColor) => {
+      localStorage.setItem(accentKey, newColor);
+      setAccentColorState(newColor);
     },
   };
 
