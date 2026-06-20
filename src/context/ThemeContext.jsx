@@ -9,9 +9,6 @@ const ThemeContext = createContext({
 
 const themeNames = [
   { id: "blue", label: "Default Blue", labelUr: "نیلا" },
-  { id: "ocean", label: "Ocean Teal", labelUr: "سمندری" },
-  { id: "emerald", label: "Emerald Green", labelUr: "سبز" },
-  { id: "amber", label: "Amber Warm", labelUr: "سنہری" },
   { id: "slate", label: "Slate Pro", labelUr: "سلیٹ" },
 ];
 

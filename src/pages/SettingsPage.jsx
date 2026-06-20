@@ -27,9 +27,6 @@ import {
 
 const themes = [
   { id: "blue", label: "Default Blue", labelUr: "نیلا", desc: "Professional blue", bg: "#f8fafc", card: "#ffffff", accent: "#2563eb", text: "#020617" },
-  { id: "ocean", label: "Ocean Teal", labelUr: "سمندری", desc: "Calm teal tones", bg: "#f0fdfa", card: "#ffffff", accent: "#0d9488", text: "#022c22" },
-  { id: "emerald", label: "Emerald Green", labelUr: "سبز", desc: "Fresh green", bg: "#f0fdf4", card: "#ffffff", accent: "#059669", text: "#052e16" },
-  { id: "amber", label: "Amber Warm", labelUr: "سنہری", desc: "Warm amber glow", bg: "#fffbeb", card: "#ffffff", accent: "#d97706", text: "#1c1917" },
   { id: "slate", label: "Slate Pro", labelUr: "سلیٹ", desc: "Purple elegance", bg: "#f8fafc", card: "#ffffff", accent: "#7c3aed", text: "#020617" },
 ];
 
