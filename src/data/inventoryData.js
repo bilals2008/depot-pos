@@ -1,0 +1,23 @@
+// File: ogs-client/depot/src/data/inventoryData.js
+export const products = [
+  { id: 1, name: "Ballpoint Pen Blue", price: 15, stock: 45, barcode: "100000000001" },
+  { id: 2, name: "Gel Pen Black", price: 30, stock: 20, barcode: "100000000002" },
+  { id: 3, name: "A4 Notebook Spiral", price: 150, stock: 15, barcode: "100000000003" },
+  { id: 4, name: "Sticky Notes", price: 80, stock: 50, barcode: "100000000004" },
+  { id: 5, name: "Scientific Calculator", price: 1200, stock: 5, barcode: "100000000005" },
+  { id: 6, name: "Stapler Medium", price: 250, stock: 10, barcode: "100000000006" },
+  { id: 7, name: "Whiteboard Marker Set", price: 200, stock: 30, barcode: "100000000007" },
+  { id: 8, name: "Correction Tape", price: 120, stock: 12, barcode: "100000000008" },
+  { id: 9, name: "Legal Pad Yellow", price: 110, stock: 25, barcode: "100000000009" },
+  { id: 10, name: "Paper Clips (100pk)", price: 45, stock: 100, barcode: "100000000010" },
+  { id: 11, name: "Highlighter Pink", price: 60, stock: 40, barcode: "100000000011" },
+  { id: 12, name: "Index Cards (100pk)", price: 90, stock: 18, barcode: "100000000012" },
+  { id: 13, name: "Heavy Duty Hole Punch", price: 850, stock: 4, barcode: "100000000013" },
+  { id: 14, name: "Desk Organizer", price: 450, stock: 8, barcode: "100000000014" },
+  { id: 15, name: "Filing Folders (25pk)", price: 300, stock: 15, barcode: "100000000015" },
+  { id: 16, name: "USB Flash Drive 32GB", price: 950, stock: 22, barcode: "100000000016" },
+  { id: 17, name: "Ergonomic Mouse", price: 1500, stock: 3, barcode: "100000000017" },
+  { id: 18, name: "Mechanical Pencil 0.5mm", price: 120, stock: 35, barcode: "100000000018" },
+  { id: 19, name: "Lead Refills 0.5 HB", price: 40, stock: 60, barcode: "100000000019" },
+  { id: 20, name: "Scissors 8 inch", price: 180, stock: 14, barcode: "100000000020" },
+];
