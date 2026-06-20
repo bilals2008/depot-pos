@@ -13,7 +13,8 @@ const defaultSettings = {
   paperSize: "58mm",
   currencySymbol: "PKR",
   taxRate: "0",
-  language: "en", // Default language
+  language: "en",
+  syncEnabled: false,
 };
 
 import { translations } from "@/lib/translations";

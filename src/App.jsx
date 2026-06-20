@@ -21,6 +21,7 @@ import WelcomeScreen from "./components/WelcomeScreen";
 import HomePage from "./pages/HomePage";
 import SalesPage from "./pages/SalesPage"; 
 import ReturnsPage from "./pages/ReturnsPage";
+import SettingsPage from "./pages/SettingsPage";
 
 function AppContent() {
   const [activePath, setActivePath] = useState("/");
@@ -70,6 +71,8 @@ function AppContent() {
         return <SalesHistoryPage onNavigate={setActivePath} />; 
       case "/stock-history":
         return <StockHistoryPage onNavigate={setActivePath} />;
+      case "/settings":
+        return <SettingsPage />;
 
       default:
         return <HomePage onNavigate={setActivePath} />;

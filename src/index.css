@@ -118,7 +118,6 @@
 }
 
 .dark {
-  /* Ensure Dark Mode Matches Root exactly */
   --background: #000000;
   --foreground: #ffffff;
   --card: #0f172a;
@@ -150,6 +149,90 @@
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: #1e293b;
   --sidebar-ring: #1d4ed8;
+}
+
+/* ===== Theme: Ocean (Teal) ===== */
+.theme-ocean {
+  --primary: #0d9488;
+  --primary-foreground: #ffffff;
+  --ring: #0d9488;
+  --sidebar-primary: #0d9488;
+  --sidebar-ring: #0d9488;
+  --chart-1: oklch(0.646 0.155 184.704);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+}
+.dark.theme-ocean {
+  --primary: #14b8a6;
+  --ring: #14b8a6;
+  --sidebar-primary: #14b8a6;
+  --sidebar-ring: #14b8a6;
+}
+
+/* ===== Theme: Emerald (Green) ===== */
+.theme-emerald {
+  --primary: #059669;
+  --primary-foreground: #ffffff;
+  --ring: #059669;
+  --sidebar-primary: #059669;
+  --sidebar-ring: #059669;
+  --chart-1: oklch(0.646 0.155 162.48);
+  --chart-2: oklch(0.6 0.118 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+}
+.dark.theme-emerald {
+  --primary: #10b981;
+  --ring: #10b981;
+  --sidebar-primary: #10b981;
+  --sidebar-ring: #10b981;
+}
+
+/* ===== Theme: Amber (Warm) ===== */
+.theme-amber {
+  --primary: #d97706;
+  --primary-foreground: #ffffff;
+  --ring: #d97706;
+  --sidebar-primary: #d97706;
+  --sidebar-ring: #d97706;
+  --chart-1: oklch(0.769 0.188 70.08);
+  --chart-2: oklch(0.828 0.189 84.429);
+  --chart-3: oklch(0.646 0.222 41.116);
+  --chart-4: oklch(0.6 0.118 184.704);
+  --chart-5: oklch(0.398 0.07 227.392);
+}
+.dark.theme-amber {
+  --primary: #f59e0b;
+  --ring: #f59e0b;
+  --sidebar-primary: #f59e0b;
+  --sidebar-ring: #f59e0b;
+}
+
+/* ===== Theme: Slate (Dark Pro) ===== */
+.theme-slate {
+  --primary: #7c3aed;
+  --primary-foreground: #ffffff;
+  --ring: #7c3aed;
+  --sidebar-primary: #7c3aed;
+  --sidebar-ring: #7c3aed;
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: #0f0f11;
+  --sidebar-foreground: #e2e8f0;
+  --sidebar-accent: #1a1a2e;
+  --sidebar-border: #1e293b;
+}
+.dark.theme-slate {
+  --primary: #8b5cf6;
+  --ring: #8b5cf6;
+  --sidebar-primary: #8b5cf6;
+  --sidebar-ring: #8b5cf6;
 }
 
 /* Google Fonts */

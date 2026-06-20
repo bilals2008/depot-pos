@@ -2,6 +2,7 @@
 export const translations = {
   en: {
     // Sidebar
+    "Dashboard": "Dashboard",
     "New Sale": "New Sale",
     "Inventory": "Inventory",
     "History": "History",
@@ -65,6 +66,7 @@ export const translations = {
   },
   ur: {
     // Sidebar
+    "Dashboard": "ڈیش بورڈ",
     "New Sale": "نئی فروخت",
     "Inventory": "اسٹاک",
     "History": "تاریخچہ",

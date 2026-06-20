@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useTheme } from "@/context/ThemeContext";
-import { BarChart3, FileText, History, Home, LayoutDashboard, LogOut, Moon, Package, RotateCcw, ShoppingCart, Sun } from "lucide-react";
+import { BarChart3, FileText, History, Home, LayoutDashboard, LogOut, Moon, Package, RotateCcw, Settings, ShoppingCart, Sun } from "lucide-react";
 import { useSettings } from "@/context/SettingsContext";
 import SyncStatus from "../SyncStatus";
 
@@ -19,7 +19,7 @@ const AppSidebar = ({ activePath, onNavigate }) => {
     { icon: FileText, label: t("Sales History"), path: "/sales-history" },
     { icon: History, label: t("Stock History"), path: "/stock-history" },
     { icon: BarChart3, label: t("Reports"), path: "/reports" },
-
+    { icon: Settings, label: t("Settings"), path: "/settings" },
   ];
 
   return (
@@ -41,9 +41,9 @@ const AppSidebar = ({ activePath, onNavigate }) => {
                     size="icon"
                     className={`h-11 w-11 rounded-lg transition-all duration-200 ${
                       isActive
-                        ? "bg-[#1e40af] text-white shadow-md shadow-blue-900/20"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted/10"
-                    } ${item.action ? "text-emerald-400 hover:text-emerald-300 hover:bg-emerald-500/10" : ""}`}
+                        ? "bg-primary text-primary-foreground shadow-md shadow-primary/20"
+                        : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                    }`}
                     onClick={() => item.action ? item.action() : onNavigate(item.path)}
                   >
                     <item.icon className="h-5 w-5" />
