@@ -15,6 +15,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { CartProvider } from "@/context/CartContext";
 import { SalesProvider } from "@/context/SalesContext";
 import { SettingsProvider } from "@/context/SettingsContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 import { NavigationProvider, useNavigation } from "@/context/NavigationContext";
 
 import WelcomeScreen from "./components/WelcomeScreen";
@@ -92,15 +93,17 @@ function AppContent() {
 
 function App() {
   return (
-    <SettingsProvider>
-      <NavigationProvider>
-        <SalesProvider>
-          <CartProvider>
-            <AppContent />
-          </CartProvider>
-        </SalesProvider>
-      </NavigationProvider>
-    </SettingsProvider>
+    <ThemeProvider>
+      <SettingsProvider>
+        <NavigationProvider>
+          <SalesProvider>
+            <CartProvider>
+              <AppContent />
+            </CartProvider>
+          </SalesProvider>
+        </NavigationProvider>
+      </SettingsProvider>
+    </ThemeProvider>
   );
 }
 
