@@ -56,6 +56,11 @@ export const translations = {
     "Phone": "Phone",
     "Email": "Email",
     "Save Changes": "Save Changes",
+    "Appearance": "Appearance",
+    "Color Theme": "Color Theme",
+    "Display Mode": "Display Mode",
+    "Cloud Sync": "Cloud Sync",
+    "Enable Cloud Sync": "Enable Cloud Sync",
     
     // Receipt
     "Date": "Date",
@@ -120,6 +125,11 @@ export const translations = {
     "Phone": "فون",
     "Email": "ای میل",
     "Save Changes": "تبدیلیاں محفوظ کریں",
+    "Appearance": "ظاہری شکل",
+    "Color Theme": "رنگین تھیم",
+    "Display Mode": "ڈسپلے موڈ",
+    "Cloud Sync": "کلاؤڈ سنک",
+    "Enable Cloud Sync": "کلاؤڈ سنک فعال کریں",
     
     // Receipt
     "Date": "تاریخ",
