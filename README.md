@@ -1,241 +1,394 @@
-<div align="center">
-  <img src="./public/logo-sq.png" alt="Orion Orbit Logo" width="120" height="120" />
-  <h1 align="center">Orion Orbit</h1>
-  <p align="center">
-    Offline-first Point of Sale &amp; Inventory Management System
-    <br />
-    Built with Electron · React · SQLite · Supabase
-  </p>
-  <p align="center">
-    <strong>English</strong> &bull;
-    <strong>اردو</strong>
-  </p>
-</div>
+# Orion Orbit
+
+A modern, cross-platform **Desktop Point-of-Sale (POS) & Inventory Management System** built with Electron, React 19, and SQLite. Designed for retail environments with bilingual support (English/Urdu), offline-first architecture, and optional cloud synchronization.
 
 ---
 
-## Overview
-
-**Orion Orbit** is a desktop POS (Point of Sale) and inventory management application designed for retail shops in Pakistan. It operates fully offline with a local SQLite database and optionally syncs to a Supabase cloud backend when connected.
-
-The app features full **Urdu language support**, thermal receipt printing, barcode scanning, and comprehensive stock history tracking.
-
-### Built For
-
-- Retail stores & stationery shops
-- Offline-first environments
-- Bilingual (English/Urdu) point of sale
-- Small to medium inventory management
-
----
-
-## Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| **Desktop Shell** | [Electron](https://www.electronjs.org/) 42 |
-| **Frontend** | [React](https://react.dev/) 19, [Vite](https://vite.dev/) 8 |
-| **Styling** | [Tailwind CSS](https://tailwindcss.com/) 4, [shadcn/ui](https://ui.shadcn.com/) |
-| **Local Database** | [SQLite](https://www.sqlite.org/) via [better-sqlite3](https://github.com/WiseLibs/better-sqlite3) |
-| **ORM** | [Drizzle ORM](https://orm.drizzle.team/) |
-| **Cloud Sync** | [Supabase](https://supabase.com/) |
-| **Charts** | [Recharts](https://recharts.org/) |
-| **Barcode** | [jsbarcode](https://github.com/lindell/JsBarcode) |
-| **Spreadsheet Export** | [SheetJS (xlsx)](https://sheetjs.com/) |
-
----
-
-## Features
+## 🚀 Features
 
 ### Point of Sale
-- Product search and category filtering
-- Cart management with quantity controls
-- Multiple payment methods (Cash, Card, etc.)
-- Discount application
-- Thermal receipt printing
-- Quick-sell sheet for fast checkout
-- Keyboard shortcuts (F1: POS, F2: Inventory, F3: Reports)
+- **Keyboard-first workflow** — F1/F2/F3 shortcuts for instant navigation
+- **Barcode scanning** — jsbarcode integration for product lookup
+- **Cart management** — Real-time totals, quantity controls, discount support
+- **Multiple payment methods** — Cash, Card, Mobile wallet
+- **Thermal receipt printing** — 58mm ESC/POS compatible
+- **Returns & Exchanges** — Full/partial returns with reason tracking
 
 ### Inventory Management
-- Add, edit, and delete products
-- Barcode and category support
-- Low stock and out-of-stock indicators
-- Stock history with change tracking
-- Manual stock adjustment logging
-
-### Sales & Returns
-- Complete sales history with pagination
-- Date-range filtering and sorting
-- Detailed sale receipts
-- Cash returns and item exchange workflows
-- Automatic stock restocking on returns
-- Soft delete with audit trail
+- **Product CRUD** — Name, barcode, price, stock, category
+- **Stock tracking** — Real-time levels with history audit trail
+- **Low-stock alerts** — Visual indicators on dashboard
+- **Bulk import/export** — Excel (xlsx) support via SheetJS
+- **Category organization** — Flexible product grouping
 
 ### Reporting & Analytics
-- Daily revenue and profit summaries
-- Sales trend charts
-- Top-selling products
-- Order counts and return rate tracking
+- **Sales dashboard** — Revenue, transactions, average order value
+- **Sales history** — Paginated, searchable, date-filtered
+- **Stock movement history** — Complete audit trail
+- **Recharts visualizations** — Area, bar, and pie charts
+- **Export to Excel** — One-click report downloads
 
-### Cloud Sync (Optional)
-- Supabase-based offline-first sync
-- Automatic background sync every 2 minutes
-- Conflict resolution (latest timestamp wins)
-- Connection status indicator
-
-### Bilingual Interface
-- Full English and Urdu (اردو) translations
-- Urdu font included for proper Nastaleeq rendering
-- Configurable language in settings
+### Technical Highlights
+- **Offline-first** — SQLite via better-sqlite3 + Drizzle ORM
+- **Optional cloud sync** — Supabase integration (toggleable)
+- **Bilingual UI** — English/Urdu with RTL support & Nastaleeq font
+- **Dark/Light themes** — System-aware with manual toggle
+- **Soft deletes** — Audit-safe data retention
+- **Auto-updates ready** — Electron builder compatible
 
 ---
 
-## Getting Started
+## 🛠 Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| **Desktop Shell** | Electron 42 (main + preload) |
+| **UI Framework** | React 19 |
+| **Build Tool** | Vite 8 |
+| **Styling** | Tailwind CSS 4 (`@theme inline` tokens) |
+| **Component Library** | shadcn/ui (Radix UI primitives) |
+| **Database** | SQLite via better-sqlite3 |
+| **ORM** | Drizzle ORM |
+| **Cloud Sync** | Supabase (optional, off by default) |
+| **Charts** | Recharts |
+| **Icons** | lucide-react |
+| **State Management** | React Context |
+| **Routing** | State-based (`activePath`) — no React Router |
+| **Barcodes** | jsbarcode |
+| **Export** | SheetJS (xlsx) |
+| **Forms** | React Hook Form + Zod |
+| **Notifications** | sonner |
+
+---
+
+## 📦 Project Structure
+
+```
+orion-orbit/
+├── electron/                    # Main process (Node.js)
+│   ├── main.js                  # Entry point, window management, IPC
+│   ├── preload.mjs              # Secure IPC bridge (contextBridge)
+│   ├── db/
+│   │   ├── db.js                # Drizzle instance & queries
+│   │   └── schema.js            # Database schema (Drizzle)
+│   └── services/
+│       └── supabase.js          # Cloud sync service
+├── src/                         # Renderer process (React)
+│   ├── components/
+│   │   ├── ui/                  # shadcn/ui primitives (DO NOT MODIFY)
+│   │   ├── layout/              # AppLayout, Sidebar, Header
+│   │   ├── pos/                 # POS-specific components
+│   │   ├── inventory/           # Inventory-specific components
+│   │   ├── sales/               # Sales-specific components
+│   │   ├── dashboard/           # Dashboard widgets
+│   │   └── WelcomeScreen.jsx
+│   ├── context/
+│   │   ├── CartContext.jsx      # POS cart state
+│   │   ├── SalesContext.jsx     # Sales data & actions
+│   │   ├── SettingsContext.jsx  # App settings (lang, theme, etc.)
+│   │   ├── ThemeContext.jsx     # Dark/light mode
+│   │   └── NavigationContext.jsx # History stack
+│   ├── hooks/
+│   │   ├── useProducts.js       # Product data & mutations
+│   │   ├── useReports.js        # Analytics queries
+│   │   └── useStockHistory.js   # Stock movement queries
+│   ├── pages/                   # Route-level components
+│   │   ├── HomePage.jsx
+│   │   ├── SalesPage.jsx
+│   │   ├── InventoryPage.jsx
+│   │   ├── ReportsPage.jsx
+│   │   ├── ReturnsPage.jsx
+│   │   ├── SalesHistoryPage.jsx
+│   │   ├── StockHistoryPage.jsx
+│   │   ├── SettingsPage.jsx
+│   │   └── SetupPage.jsx
+│   ├── lib/
+│   │   ├── utils.js             # cn() className merger
+│   │   ├── translations.js      # EN/UR translation map
+│   │   └── data.js              # Static/mock data
+│   ├── index.css                # Tailwind v4 + @theme tokens
+│   ├── App.jsx                  # Root component, routing, providers
+│   └── main.jsx                 # React entry point
+├── public/                      # Static assets
+│   ├── fonts/                   # Jameel Noori Nastaleeq
+│   └── logo-sq.png
+├── components.json              # shadcn/ui config
+├── vite.config.js               # Vite + Tailwind + aliases
+├── eslint.config.js
+└── package.json
+```
+
+---
+
+## ⚡ Quick Start
 
 ### Prerequisites
-
-- [Node.js](https://nodejs.org/) 18+
-- npm, yarn, or pnpm
+- **Node.js** 20+
+- **npm** 10+ (or pnpm/yarn)
 
 ### Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/your-username/orion-orbit.git
+# Clone repository
+git clone <repository-url>
 cd orion-orbit
 
 # Install dependencies
 npm install
 
-# Start development (Vite + Electron concurrently)
+# Start development (Vite + Electron with hot reload)
 npm run dev
 ```
 
-The app starts Vite dev server on `localhost:5173` and launches the Electron window automatically.
+### Available Scripts
 
-### Production Build
-
-```bash
-npm run build
-```
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start dev server + Electron (hot reload) |
+| `npm run build` | Production build to `dist/` |
+| `npm run preview` | Preview Vite build |
+| `npm run electron` | Run packaged Electron app |
+| `npm run lint` | ESLint check |
 
 ---
 
-## Configuration
+## ⚙️ Configuration
 
 ### Environment Variables
 
-Create a `.env` file in the project root (optional, only needed for cloud sync):
+Create `.env` in project root (see `electron/main.js` for Supabase config):
 
 ```env
-SUPABASE_URL=https://your-project.supabase.co
-SUPABASE_KEY=your-anon-key
+# Supabase (optional - sync disabled by default)
+VITE_SUPABASE_URL=your-project-url
+VITE_SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 ```
 
-### Sync Toggle
+### Enable Cloud Sync
 
-Cloud sync is disabled by default. To enable it, set `SYNC_ENABLED = true` in `electron/main.js`:
+Edit `electron/main.js`:
 
-```js
+```javascript
+// Line 12: Change to true
 const SYNC_ENABLED = true;
 ```
 
----
+Sync runs automatically every 2 minutes when enabled.
 
-## Project Structure
+### Database Location
 
-```
-orion-orbit/
-├── electron/
-│   ├── main.js              # Electron main process & IPC handlers
-│   ├── preload.mjs          # Context bridge for renderer
-│   ├── db/
-│   │   ├── db.js            # SQLite initialization & CRUD operations
-│   │   └── schema.js        # Drizzle ORM schema definitions
-│   └── services/
-│       └── supabase.js      # Cloud sync service
-├── src/
-│   ├── App.jsx              # Root component with state-based routing
-│   ├── main.jsx             # React entry point
-│   ├── components/
-│   │   ├── ui/              # shadcn/ui primitives
-│   │   ├── layout/          # AppLayout, AppSidebar
-│   │   ├── dashboard/       # HomeDashboard, StatCard, ActionCard
-│   │   ├── pos/             # POS module components
-│   │   ├── sales/           # ReceiptDialog, ReturnDialog
-│   │   └── inventory/       # ProductDialog, DeleteAlert
-│   ├── context/             # React context providers
-│   ├── hooks/               # Custom React hooks
-│   ├── pages/               # Route pages
-│   ├── data/                # Static data / mock data
-│   └── lib/                 # Utilities & translations
-├── public/
-│   ├── fonts/               # Urdu Nastaleeq font
-│   ├── logo-sq.png
-│   └── logo-white.png
-├── supabase_trigger.sql     # Supabase trigger for updated_at
-├── vite.config.js
-└── components.json          # shadcn/ui configuration
-```
+SQLite database stored at:
+- **Windows**: `%APPDATA%/Orion Orbit/database.sqlite`
+- **macOS**: `~/Library/Application Support/Orion Orbit/database.sqlite`
+- **Linux**: `~/.config/Orion Orbit/database.sqlite`
 
 ---
 
-## Keyboard Shortcuts
+## 🎨 Design System
+
+### Semantic Tokens Only
+
+**Never use hardcoded colors, spacing, or radii.** Use Tailwind v4 semantic tokens defined in `src/index.css`:
+
+```jsx
+// ✅ Correct
+<div className="bg-background text-foreground border-border" />
+<Button variant="destructive" className="rounded-lg" />
+<div className="text-muted-foreground" />
+
+// ❌ Wrong
+<div className="bg-white text-black border-gray-200" />
+<Button className="bg-red-500" />
+<div className="text-gray-500" />
+```
+
+### Available Tokens
+
+| Token | Purpose |
+|-------|---------|
+| `bg-background` / `text-foreground` | Primary surface & text |
+| `bg-card` / `text-card-foreground` | Card surfaces |
+| `bg-popover` / `text-popover-foreground` | Popovers/dropdowns |
+| `bg-primary` / `text-primary-foreground` | Primary actions |
+| `bg-secondary` / `text-secondary-foreground` | Secondary actions |
+| `bg-muted` / `text-muted-foreground` | De-emphasized content |
+| `bg-accent` / `text-accent-foreground` | Hover/focus states |
+| `bg-destructive` / `text-destructive-foreground` | Destructive actions |
+| `border-border` / `border-input` | Borders |
+| `ring-ring` | Focus rings |
+| `rounded-[radius]` via `--radius` | Border radius |
+| `chart-1` … `chart-5` | Chart colors |
+
+### shadcn/ui Components
+
+All primitives in `src/components/ui/`. Import and compose — **never modify**:
+
+```jsx
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
+import { toast } from "sonner";
+```
+
+Use `cn()` from `@/lib/utils` for className merging.
+
+---
+
+## 🌐 Bilingual Support (EN/UR)
+
+### Translations
+Defined in `src/lib/translations.js` with flat key structure:
+
+```javascript
+export const translations = {
+  en: { "pos.title": "Point of Sale", ... },
+  ur: { "pos.title": "پوائنٹ آف سیل", ... }
+};
+```
+
+### Usage
+```jsx
+const { t, language } = useSettings();
+<button>{t("pos.checkout")}</button>
+```
+
+### Urdu Rendering
+- **Font**: "Jameel Noori Nastaleeq" (bundled in `public/fonts/`)
+- **Direction**: RTL via `html[lang="ur"]`
+- **Class**: Apply `text-urdu` or `dir="rtl"` for Urdu text
+
+---
+
+## ⌨️ Keyboard Shortcuts
 
 | Key | Action |
 |-----|--------|
-| `F1` | Open POS / Sales Page |
-| `F2` | Open Inventory |
-| `F3` | Open Reports |
+| **F1** | Navigate to POS (`/sales`) |
+| **F2** | Navigate to Inventory (`/inventory`) |
+| **F3** | Navigate to Reports (`/reports`) |
+
+Defined in `src/App.jsx` global keydown listener.
 
 ---
 
-## Database Schema
+## 🗄 Database Schema
 
-### Products
-| Column | Type | Description |
-|--------|------|-------------|
-| `id` | UUID | Primary key |
-| `name` | TEXT | Product name |
-| `barcode` | TEXT | Unique barcode |
-| `price` | REAL | Selling price |
-| `stock` | INTEGER | Current stock count |
-| `category` | TEXT | Product category |
-| `sync_status` | TEXT | `pending`, `synced`, or `error` |
+### Tables
 
-### Sales
-| Column | Type | Description |
-|--------|------|-------------|
-| `id` | UUID | Primary key |
-| `total_amount` | REAL | Total sale amount |
-| `payment_method` | TEXT | Cash, Card, etc. |
-| `status` | TEXT | Completed, Returned, Exchanged |
-| `created_at` | TIMESTAMP | Sale timestamp |
+| Table | Description |
+|-------|-------------|
+| `products` | Product catalog (id, name, barcode, price, stock, category, sync fields) |
+| `sales` | Sale records (id, totalAmount, paymentMethod, status, sync fields) |
+| `sale_items` | Line items per sale (saleId, productId, quantity, priceAtSale) |
+| `stock_history` | Audit trail (productId, previousStock, currentStock, changeAmount, reason) |
+| `sync_state` | Key-value checkpoints for sync resume |
 
-### Stock History
-| Column | Type | Description |
-|--------|------|-------------|
-| `id` | UUID | Primary key |
-| `product_id` | UUID | Related product |
-| `previous_stock` | INTEGER | Stock before change |
-| `current_stock` | INTEGER | Stock after change |
-| `change_amount` | INTEGER | Quantity change |
-| `reason` | TEXT | Reason for change |
+### Soft Deletes
+All tables use `deletedAt` timestamp — **never hard delete**. Queries filter `WHERE deletedAt IS NULL`.
 
 ---
 
-## Contributing
+## 🔌 Electron IPC API
 
-Contributions are welcome. Please open an issue first to discuss your proposed changes.
+Renderer → Main via `window.electron`:
+
+```javascript
+// Products
+window.electron.getAllProducts()
+window.electron.addProduct({ id, name, barcode, price, stock, category })
+window.electron.updateProduct({ id, name, barcode, price, stock, category })
+window.electron.deleteProduct(id)
+
+// Sales
+window.electron.createSale({ id, totalAmount, paymentMethod, items })
+window.electron.getSales(startDate, endDate)
+window.electron.getSalesPaginated({ page, pageSize, sortBy, sortOrder, searchTerm })
+window.electron.deleteSale(id)
+
+// Inventory
+window.electron.getStockHistory()
+
+// Returns
+window.electron.processReturn({ saleId, returnedItems, exchangeItems, returnMode, reason })
+
+// Printing
+window.electron.printReceipt(receiptData)
+
+// Sync
+window.electron.checkConnection()
+```
 
 ---
 
-## License
+## 📦 Build & Distribution
 
-Private · The Orion School
+### Development Build
+```bash
+npm run build
+npm run electron  # Runs from dist/
+```
+
+### Production Packaging
+Configure `package.json` → `build` section for [electron-builder](https://www.electron.build/):
+
+```json
+"build": {
+  "appId": "com.orion.orbit",
+  "productName": "Orion Orbit",
+  "files": ["dist/**/*", "electron/**/*"],
+  "extraResources": ["public/**/*"],
+  "win": { "target": "nsis" },
+  "mac": { "target": "dmg" },
+  "linux": { "target": "AppImage" }
+}
+```
+
+Then:
+```bash
+npx electron-builder
+```
 
 ---
 
-<div align="center">
-  <sub>Built with ❤️ by Muhammad Bilal Hassan</sub>
-</div>
+## 🧪 Code Quality
+
+```bash
+# Lint
+npm run lint
+
+# Type checking (if TypeScript added)
+# npx tsc --noEmit
+```
+
+### Conventions
+- **Imports**: React → libraries → shadcn → app components → local
+- **Aliases**: `@/` maps to `src/` (configured in `vite.config.js`)
+- **Components**: Feature folders under `src/components/{feature}/`
+- **Context**: Providers wrap `AppContent` in `App.jsx`
+- **Routing**: State-based via `activePath` — no React Router
+
+---
+
+## 📄 License
+
+Proprietary — Orion Orbit by **The Orion School / Muhammad Bilal Hassan**.
+
+---
+
+## 🤝 Contributing
+
+Internal project — direct commits to `main` with descriptive messages.
+
+```bash
+git add -A
+git commit -m "feat(scope): description"
+git push
+```
+
+---
+
+## 📞 Support
+
+For issues or questions, contact **Muhammad Bilal Hassan**.
