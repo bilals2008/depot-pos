@@ -371,12 +371,6 @@ npm run lint
 
 ---
 
-## 📄 License
-
-Proprietary — Orion Orbit by **The Orion School / Muhammad Bilal Hassan**.
-
----
-
 ## 🤝 Contributing
 
 Internal project — direct commits to `main` with descriptive messages.
