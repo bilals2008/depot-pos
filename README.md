@@ -371,18 +371,3 @@ npm run lint
 
 ---
 
-## 🤝 Contributing
-
-Internal project — direct commits to `main` with descriptive messages.
-
-```bash
-git add -A
-git commit -m "feat(scope): description"
-git push
-```
-
----
-
-## 📞 Support
-
-For issues or questions, contact **Muhammad Bilal Hassan**.
