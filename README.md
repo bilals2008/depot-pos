@@ -1,6 +1,12 @@
-# Orion Orbit
+<p align="center">
+  <img src="https://raw.githubusercontent.com/bilals2008/depot-pos/main/public/logo-sq.png" alt="Orion Orbit Logo" width="120">
+</p>
 
-A modern, cross-platform **Desktop Point-of-Sale (POS) & Inventory Management System** built with Electron, React 19, and SQLite. Designed for retail environments with bilingual support (English/Urdu), offline-first architecture, and optional cloud synchronization.
+<h1 align="center">Orion Orbit</h1>
+
+<p align="center">
+  A modern, cross-platform <strong>Desktop Point-of-Sale (POS) & Inventory Management System</strong> built with Electron, React 19, and SQLite. Designed for retail environments with bilingual support (English/Urdu), offline-first architecture, and optional cloud synchronization.
+</p>
 
 ---
 
